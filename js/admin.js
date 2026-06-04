@@ -1,6 +1,4 @@
-// admin.js — منطق لوحة الإدارة: قفل الدخول، رسم المخطط، تعبئة الجدول، وتصدير CSV بترميز UTF-8 مع BOM
-// إضافة: trap للتركيز داخل قفل القبو، واستعادة تفضيل التباين العالي للمسؤول إن وُجد.
-// إضافة: تمكين زر 'عرض' في جدول المنخرطين لعرض تفاصيل سريعة
+// admin.js — responsive improvements: ensure sidebar toggles, provide mobile-friendly interactions
 (() => {
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
@@ -157,6 +155,18 @@
     const shown = sidebar.style.left === '0px';
     sidebar.style.left = shown ? '-320px' : '0px';
   });
+
+  // Ensure sidebar state on resize
+  function handleResize() {
+    if (!sidebar) return;
+    if (window.innerWidth <= 980) {
+      sidebar.style.left = '-320px';
+    } else {
+      sidebar.style.left = '0px';
+    }
+  }
+  window.addEventListener('resize', handleResize);
+  handleResize();
 
   // Export CSV logic (UTF-8 BOM + disable button + spinner)
   exportBtn?.addEventListener('click', async () => {

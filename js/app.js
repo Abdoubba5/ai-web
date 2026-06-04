@@ -1,10 +1,15 @@
 // app.js — تعاملات الواجهة الأمامية للزوار (استشارات، نموذج التطوع، نسخ الكود، تنقلات)
-// إضافة: حفظ المسودات محليًا، شدة الحالة، زر طوارئ، تبديل تباين عالي، traps للتركيز في drawer، تحسين وصولية.
-// إضافة: ربط زر لوحة الإدارة وdrawer admin
+// إضافة: تحسين تجاوب اللمس، safe-area handling، ضبط السلوك على أجهزة iOS/Android/tablet
 (() => {
   // Utilities
   const $ = sel => document.querySelector(sel);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+  // Add class for touch devices to tweak styles
+  function detectTouch() {
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) document.body.classList.add('touch');
+  }
+  detectTouch();
 
   // Persisted keys
   const DRAFT_KEY = 'bba_consult_draft_v1';
@@ -79,6 +84,9 @@
   // restore contrast
   const savedContrast = localStorage.getItem(CONTRAST_KEY);
   if (savedContrast === '1') applyContrast(true);
+
+  // Improve scroll behavior for iOS
+  document.documentElement.style.webkitOverflowScrolling = 'touch';
 
   // Membership selector logic
   const memberOptions = $$('.member-option');
@@ -287,8 +295,6 @@
     }
   });
 
-  // Smooth in-page nav highlight (removed top nav)
-
   // Progressive reveal for article cards
   window.addEventListener('load', () => {
     $$('.article-card').forEach((c, i) => {
@@ -317,5 +323,15 @@
       if (drawer.getAttribute('aria-hidden') === 'false') closeDrawer();
     }
   });
+
+  // Responsive adjustments on resize: show/hide bottom nav as needed
+  function handleResize() {
+    const bottomNav = document.querySelector('.bottom-nav');
+    if (!bottomNav) return;
+    if (window.innerWidth <= 768) bottomNav.style.display = 'flex';
+    else bottomNav.style.display = 'none';
+  }
+  window.addEventListener('resize', handleResize);
+  handleResize();
 
 })();
