@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة إدارة — منصة وعي الشباب BBA</title>
+
+  <!-- CSP meta (server header recommended for production) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' https://cdn.jsdelivr.net; base-uri 'self'; frame-ancestors 'none';">
+
+  <!-- Cairo font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Chart.js with SRI integrity (exact integrity value inserted) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
+    integrity="sha384-iRCHU7Sb1Hzw6eA0ZI2F6tsEJfU9P5gtkNIGV8AAU4I5GmRz5575n7Qw0dZMrbCV"
+    crossorigin="anonymous" defer></script>
+</head>
+<body>
+  <div id="admin-app" class="admin-app">
+    <!-- Vault-style lock overlay to prevent FOUC -->
+    <div id="lock-overlay" class="lock-overlay" aria-hidden="false" role="dialog" aria-modal="true" aria-label="شاشة الدخول الآمن">
+      <div class="lock-vault card" id="vault" tabindex="-1">
+        <div class="vault-icon" aria-hidden="true">🔒</div>
+        <h2>دخول آمن إلى لوحة الإدارة</h2>
+        <p>لحماية بيانات المستخدمين، الرجاء إدخال بيانات الاعتماد.</p>
+
+        <form id="lock-form" class="lock-form" autocomplete="off">
+          <label class="label">البريد الإلكتروني</label>
+          <input id="admin-email" class="input" type="email" placeholder="admin@bba.dz" required>
+
+          <label class="label">كلمة المرور</label>
+          <input id="admin-pass" class="input" type="password" placeholder="••••••••" required>
+
+          <div class="lock-actions">
+            <button type="submit" class="btn primary">دخول</button>
+            <button type="button" id="demo-fill" class="btn outline">استخدام بيانات تجريبية</button>
+          </div>
+          <div class="lock-hint">ملاحظة: بيانات الاختبار — admin@bba.dz / bba2026</div>
+        </form>
+      </div>
+    </div>
+
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="قائمة لوحة التحكم">
+      <div class="sidebar-top">
+        <div class="logo" aria-hidden="true">BBA</div>
+        <div class="sidebar-title">لوحة التحكم</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="sb-item active" data-section="overview">نظرة عامة</button>
+        <button class="sb-item" data-section="members">المنخرطون</button>
+        <button class="sb-item" data-section="reports">التقارير</button>
+        <button class="sb-item" data-section="settings">الإعدادات</button>
+      </nav>
+      <div class="sidebar-footer">Dz Young Leaders</div>
+    </aside>
+
+    <header class="admin-header">
+      <button id="sidebar-toggle" class="btn icon" aria-label="قائمة جانبية">☰</button>
+      <div class="header-title">نظرة عامة</div>
+      <div class="header-widgets">
+        <div class="counter">
+          <div class="counter-label">الطلبات اليوم</div>
+          <div class="counter-number" id="counter-today">0</div>
+        </div>
+        <div class="counter">
+          <div class="counter-label">المنخرطون</div>
+          <div class="counter-number" id="counter-members">0</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main" id="admin-main">
+      <section class="dashboard-grid">
+        <div class="card panel overview">
+          <h3>إحصاءات سريعة</h3>
+          <div class="stats-grid">
+            <div class="stat">
+              <div class="stat-number" id="stat-cases">128</div>
+              <div class="stat-label">حالات استشارية</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number" id="stat-vols">64</div>
+              <div class="stat-label">متطوعون</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number" id="stat-approved">42</div>
+              <div class="stat-label">موافق عليها</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card panel chart-panel">
+          <h3>نسبة القرارات الشهرية</h3>
+          <canvas id="barChart" width="400" height="200" aria-label="مخطط القرارات" role="img"></canvas>
+        </div>
+
+        <div class="card panel members-panel">
+          <h3>قائمة المنخرطين</h3>
+          <div class="table-responsive">
+            <table class="data-table" role="table" aria-label="قائمة المنخرطين">
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>البلدية</th>
+                  <th>نوع العضوية</th>
+                  <th>الحالة</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="members-table">
+                <!-- rows populated by admin.js -->
+              </tbody>
+            </table>
+          </div>
+          <div class="table-actions">
+            <button id="export-csv" class="btn primary">تصدير إلى CSV</button>
+            <div id="export-spinner" class="spinner" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast-admin" class="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/admin.js" defer></script>
+</body>
+</html>

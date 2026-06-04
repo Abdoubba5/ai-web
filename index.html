@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>منصة وعي الشباب BBA — Dz Young Leaders</title>
+
+  <!-- Security: Basic CSP (meta fallback). For full security, set HTTP header Content-Security-Policy on the server. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; base-uri 'self'; frame-ancestors 'none';">
+
+  <!-- Cairo font optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Sticky glass header -->
+  <header class="topbar" id="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">BBA</div>
+        <div class="brand-text">
+          <div class="title">منصة وعي الشباب BBA</div>
+          <div class="subtitle">برنامج Dz Young Leaders — مكافحة الإدمان ودعم نفساني مجهول</div>
+        </div>
+      </div>
+
+      <nav class="nav-desktop" aria-label="القائمة الرئيسية">
+        <a href="#awareness" class="nav-link active">المركز التوعوي</a>
+        <a href="#consultation" class="nav-link">استشارة نفسية مجهولة</a>
+        <a href="#volunteer" class="nav-link">الانخراط التطوعي</a>
+        <a href="#about" class="nav-link">من نحن</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn primary" id="open-consult" aria-label="ابدأ استشارة">ابدأ استشارة</button>
+
+        <!-- High contrast toggle -->
+        <button id="contrast-toggle" class="btn outline" aria-pressed="false" title="تبديل وضع التباين العالي">وضع تباين عالي</button>
+
+        <button class="hamburger" id="hamburger" aria-label="قائمة">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile drawer -->
+    <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="قائمة التنقل">
+      <nav class="drawer-nav" id="drawer-nav">
+        <a href="#awareness" class="drawer-link">المركز التوعوي</a>
+        <a href="#consultation" class="drawer-link">استشارة نفسية مجهولة</a>
+        <a href="#volunteer" class="drawer-link">الانخراط التطوعي</a>
+        <a href="#about" class="drawer-link">من نحن</a>
+      </nav>
+      <button id="drawer-close" class="btn outline" aria-label="إغلاق القائمة">إغلاق</button>
+    </div>
+  </header>
+
+  <!-- bottom nav for small screens -->
+  <nav class="bottom-nav" aria-label="التنقل السفلي">
+    <button class="bn-item" data-target="#awareness">التوعية</button>
+    <button class="bn-item" data-target="#consultation">استشارة</button>
+    <button class="bn-item" data-target="#volunteer">التطوع</button>
+    <button class="bn-item" data-target="#about">نبذة</button>
+  </nav>
+
+  <main class="container main" id="main">
+    <!-- Awareness Section -->
+    <section id="awareness" class="section">
+      <h2 class="section-title">المركز التوعوي لمكافحة الإدمان</h2>
+      <p class="lead">مقالات واستشرافات تربوية وصحية مهيأة لقراءة طويلة هادئة وخالية من الإجهاد البصري.</p>
+
+      <div class="cards-grid" aria-live="polite">
+        <!-- Example article cards -->
+        <article class="card article-card">
+          <div class="card-media" style="background-image:url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?q=80&w=1600&auto=format&fit=crop');" role="img" aria-label="صحة نفسية"></div>
+          <div class="card-body">
+            <h3 class="card-title">كيف نكتشف علامات الإدمان لدى الشاب؟</h3>
+            <p class="card-excerpt">إرشادات محترفة للتعرف المبكر والدعم المبكر، مع خطوات عملية للآباء والمجتمع.</p>
+            <a class="card-cta" href="#consultation">اقرأ المزيد</a>
+          </div>
+        </article>
+
+        <article class="card article-card">
+          <div class="card-media" style="background-image:url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop');" role="img" aria-label="وقاية اجتماعية"></div>
+          <div class="card-body">
+            <h3 class="card-title">برامج الوقاية المجتمعية الناجحة</h3>
+            <p class="card-excerpt">دراسات حالة وتجارب محلية وعالمية قابلة للتطبيق في ولاية برج بوعريريج.</p>
+            <a class="card-cta" href="#about">اقرأ المزيد</a>
+          </div>
+        </article>
+
+        <article class="card article-card">
+          <div class="card-media" style="background-image:url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop');" role="img" aria-label="دعم نفسي"></div>
+          <div class="card-body">
+            <h3 class="card-title">التعامل النفسي مع مرحلة المقاومة</h3>
+            <p class="card-excerpt">تقنيات لبناء الثقة والالتزام مع تقديم الدعم الأولي المجهول.</p>
+            <a class="card-cta" href="#consultation">اقرأ المزيد</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Consultation Section -->
+    <section id="consultation" class="section">
+      <h2 class="section-title">استشارة نفسية مجهولة آمنة</h2>
+      <p class="lead">احصل على تتبع آمن للاستشارة دون الكشف عن هويتك. الكود يحفظ الخصوصية ويُمكن مراكزنا من متابعة الحالة بشكل سري.</p>
+
+      <div class="consult-card card" id="consult-card">
+        <div class="consult-left">
+          <label class="label">اختر نوع الاستشارة</label>
+          <select id="consult-type" class="input" aria-label="نوع الاستشارة">
+            <option value="crisis">دعم طارئ</option>
+            <option value="advice">نصيحة عامة</option>
+            <option value="followup">متابعة علاجية</option>
+          </select>
+
+          <label class="label">شدة الحالة</label>
+          <div class="severity" role="radiogroup" aria-label="شدة الحالة">
+            <button class="sev-btn" data-val="light" aria-pressed="false">خفيف</button>
+            <button class="sev-btn" data-val="medium" aria-pressed="false">متوسط</button>
+            <button class="sev-btn" data-val="severe" aria-pressed="false">حاد</button>
+          </div>
+
+          <label class="label">وصف مختصر للحالة (غير مطلوب)</label>
+          <textarea id="consult-desc" class="input" placeholder="أكتب وصفًا موجزًا إن رغبت..." aria-label="وصف الحالة"></textarea>
+
+          <div class="urgent-actions">
+            <button id="im-in-danger" class="btn outline" title="تنبيه الطوارئ">أنا في خطر الآن</button>
+            <small class="muted">استخدم هذا الزر للحصول على إرشادات فورية.</small>
+          </div>
+
+          <div class="code-area">
+            <div class="code-box" id="secure-code" aria-live="polite">اضغط على "إنشاء كود" للحصول على كود أمني</div>
+            <div class="code-actions">
+              <button id="generate-code" class="btn outline">إنشاء كود آمن</button>
+              <button id="copy-code" class="btn" disabled>نسخ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="consult-right">
+          <h3>لماذا كود آمن؟</h3>
+          <p>الكود يضمن أن تظل استشارتك مجهولة — يمكن للمختصين الرجوع إليه دون كشف هويتك. احتفظ به لإسترجاع حالتك أو لمتابعة الجلسات.</p>
+          <ul class="features">
+            <li>مجهولية تامة</li>
+            <li>تتبع علاجي موثوق</li>
+            <li>إرشاد فوري أو متابعة</li>
+          </ul>
+
+          <button class="btn primary" id="start-consult">بدء جلسة استشارة</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="section">
+      <h2 class="section-title">انخراط المتطوعين</h2>
+      <p class="lead">سجل الانخراط لتكون جزءًا من جهود التوعية والدعم في ولاية برج بوعريريج.</p>
+
+      <form id="volunteer-form" class="card form-card" autocomplete="off" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label class="label">الاسم الكامل</label>
+            <input type="text" id="v-name" class="input" placeholder="مثال: محمد بن علي" required>
+          </div>
+
+          <div class="field">
+            <label class="label">الهاتف (اختياري)</label>
+            <input type="tel" id="v-phone" class="input" placeholder="مثال: +213xxxxxxxxx">
+          </div>
+
+          <div class="field">
+            <label class="label">البريد الإلكتروني (اختياري)</label>
+            <input type="email" id="v-email" class="input" placeholder="مثال: name@example.com">
+          </div>
+
+          <div class="field">
+            <label class="label">بلدية الإقامة</label>
+            <select id="municipality" class="input" required>
+              <option value="">اختر البلدية...</option>
+              <option>أولاد براهم</option>
+              <option>أولاد دحمان</option>
+              <option>أولاد سيدي إبراهيم</option>
+              <option>برج بوعريريج</option>
+              <option>برج زمورة</option>
+              <option>برج الغدير</option>
+              <option>بن داود</option>
+              <option>بئر قصد علي</option>
+              <option>ثنية النصر</option>
+              <option>تاسمرت</option>
+              <option>تفرق</option>
+              <option>تقلعيت</option>
+              <option>تكستار</option>
+              <option>جعافرة</option>
+              <option>حرازة</option>
+              <option>حسناوة</option>
+              <option>الحمادية</option>
+              <option>خليل</option>
+              <option>رأس الوادي</option>
+              <option>الرابطة</option>
+              <option>الرفراف</option>
+              <option>سيدي امبارك</option>
+              <option>العش</option>
+              <option>العناصر</option>
+              <option>عين تاغروت</option>
+              <option>عين تسرة</option>
+              <option>غيلاسة</option>
+              <option>القصور</option>
+              <option>القلّة</option>
+              <option>الماين</option>
+              <option>مجانة</option>
+              <option>المنصورة</option>
+              <option>المهير</option>
+              <option>الياشير</option>
+            </select>
+          </div>
+
+          <div class="field membership-field">
+            <label class="label">نوع العضوية</label>
+            <div class="membership-selector" role="radiogroup" aria-label="نوع العضوية">
+              <button type="button" class="member-option" data-value="exec" aria-pressed="false">عضو فعال في الإدارة</button>
+              <button type="button" class="member-option" data-value="org" aria-pressed="false">عضو في التنظيم</button>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label class="label">ملاحظات إضافية</label>
+            <textarea id="v-notes" class="input" placeholder="إن رغبت بذكر خبرات أو أوقات تفضّل المساعدة بها..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">إرسال طلب الانخراط</button>
+          <div class="form-note">سوف نتواصل معك عند الحاجة — نحمي خصوصيتك وبياناتك.</div>
+        </div>
+      </form>
+    </section>
+
+    <section id="about" class="section muted">
+      <h2 class="section-title">من نحن</h2>
+      <p>منصة معنية بتجميع مبادرات الشباب ودعمهم نفسياً ومجتمعياً في ولاية برج بوعريريج ضمن إطار برنامج Dz Young Leaders.</p>
+    </section>
+  </main>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" aria-live="assertive" aria-atomic="true"></div>
+
+  <script src="js/app.js" defer></script>
+</body>
+</html>
