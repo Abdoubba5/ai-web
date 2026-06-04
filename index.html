@@ -41,6 +41,9 @@
         <!-- Admin access -->
         <button id="open-admin" class="btn outline" aria-label="لوحة الإدارة">لوحة الإدارة</button>
 
+        <!-- To-do access -->
+        <button id="open-todos" class="btn outline" aria-label="قائمة المهام">قائمة المهام</button>
+
         <!-- High contrast toggle -->
         <button id="contrast-toggle" class="btn outline" aria-pressed="false" title="تبديل وضع التباين العالي">وضع تباين عالي</button>
 
@@ -126,7 +129,7 @@
           </div>
 
           <div class="code-area">
-            <div class="code-box" id="secure-code" aria-live="polite">اضغط على \"إنشاء كود\" للحصول على كود أمني</div>
+            <div class="code-box" id="secure-code" aria-live="polite">اضغط على "إنشاء كود" للحصول على كود أمني</div>
             <div class="code-actions">
               <button id="generate-code" class="btn outline">إنشاء كود آمن</button>
               <button id="copy-code" class="btn" disabled>نسخ</button>
@@ -237,6 +240,42 @@
       <p>منصة معنية بتجميع مبادرات الشباب ودعمهم نفسياً ومجتمعياً في ولاية برج بوعريريج ضمن إطار برنامج Dz Young Leaders.</p>
     </section>
   </main>
+
+  <!-- To-do Slide-over Panel -->
+  <aside id="todo-panel" class="todo-panel" aria-hidden="true" aria-label="قائمة المهام">
+    <div class="todo-header">
+      <h3>قائمة المهام</h3>
+      <div class="todo-controls">
+        <button id="todo-close" class="btn outline" aria-label="إغلاق">إغلاق</button>
+      </div>
+    </div>
+    <div class="todo-body">
+      <form id="todo-form" class="todo-form" autocomplete="off">
+        <input id="todo-input" class="input" placeholder="أضف مهمة جديدة..." aria-label="إضافة مهمة">
+        <button type="submit" class="btn primary">إضافة</button>
+      </form>
+
+      <div class="todo-filters">
+        <button class="btn outline todo-filter active" data-filter="all">الكل</button>
+        <button class="btn outline todo-filter" data-filter="active">قيد التنفيذ</button>
+        <button class="btn outline todo-filter" data-filter="completed">منجز</button>
+      </div>
+
+      <ul id="todo-list" class="todo-list" role="list"></ul>
+
+      <div class="todo-footer">
+        <div class="left">
+          <span id="todo-count">0 مهمة</span>
+        </div>
+        <div class="right">
+          <button id="clear-completed" class="btn outline">حذف المنجز</button>
+          <button id="export-todos" class="btn outline">تصدير</button>
+          <button id="import-todos" class="btn outline">استيراد</button>
+          <input type="file" id="import-file" accept="application/json" style="display:none">
+        </div>
+      </div>
+    </div>
+  </aside>
 
   <!-- Toast notification -->
   <div id="toast" class="toast" aria-live="assertive" aria-atomic="true"></div>
