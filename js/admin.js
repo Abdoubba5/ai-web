@@ -1,5 +1,6 @@
 // admin.js — منطق لوحة الإدارة: قفل الدخول، رسم المخطط، تعبئة الجدول، وتصدير CSV بترميز UTF-8 مع BOM
 // إضافة: trap للتركيز داخل قفل القبو، واستعادة تفضيل التباين العالي للمسؤول إن وُجد.
+// إضافة: تمكين زر 'عرض' في جدول المنخرطين لعرض تفاصيل سريعة
 (() => {
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
@@ -90,14 +91,14 @@
       {name:'سلمى ب.', muni:'الماين', type:'عضو فعال في الإدارة', status:'Pending'}
     ];
     membersTable.innerHTML = '';
-    demoMembers.forEach(m => {
+    demoMembers.forEach((m, idx) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${m.name}</td>
         <td>${m.muni}</td>
         <td style="color:${m.type.includes('إدارة')? '#D4AF37':'#ffffff'}; font-weight:800">${m.type}</td>
         <td>${m.status === 'Approved' ? '<span class="badge approved">موافق</span>' : '<span class="badge pending">قيد المراجعة</span>'}</td>
-        <td><button class="btn outline small">عرض</button></td>
+        <td><button class="btn outline small view-member" data-idx="${idx}">عرض</button></td>
       `;
       membersTable.appendChild(tr);
     });
@@ -138,6 +139,16 @@
         }
       });
     }
+
+    // enable view buttons
+    document.querySelectorAll('.view-member').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tr = e.target.closest('tr');
+        const cols = tr.querySelectorAll('td');
+        const info = `الاسم: ${cols[0].innerText}\nالبلدية: ${cols[1].innerText}\nنوع العضوية: ${cols[2].innerText}\nالحالة: ${cols[3].innerText}`;
+        showAdminToast(info);
+      });
+    });
   }
 
   // Sidebar toggle for small screens

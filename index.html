@@ -28,15 +28,13 @@
         </div>
       </div>
 
-      <nav class="nav-desktop" aria-label="القائمة الرئيسية">
-        <a href="#awareness" class="nav-link active">المركز التوعوي</a>
-        <a href="#consultation" class="nav-link">استشارة نفسية مجهولة</a>
-        <a href="#volunteer" class="nav-link">الانخراط التطوعي</a>
-        <a href="#about" class="nav-link">من نحن</a>
-      </nav>
+      <!-- Removed top navigation links as requested -->
 
       <div class="actions">
         <button class="btn primary" id="open-consult" aria-label="ابدأ استشارة">ابدأ استشارة</button>
+
+        <!-- Admin access -->
+        <button id="open-admin" class="btn outline" aria-label="لوحة الإدارة">لوحة الإدارة</button>
 
         <!-- High contrast toggle -->
         <button id="contrast-toggle" class="btn outline" aria-pressed="false" title="تبديل وضع التباين العالي">وضع تباين عالي</button>
@@ -47,25 +45,14 @@
       </div>
     </div>
 
-    <!-- mobile drawer -->
+    <!-- mobile drawer: simplified to only show admin action and close -->
     <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="قائمة التنقل">
       <nav class="drawer-nav" id="drawer-nav">
-        <a href="#awareness" class="drawer-link">المركز التوعوي</a>
-        <a href="#consultation" class="drawer-link">استشارة نفسية مجهولة</a>
-        <a href="#volunteer" class="drawer-link">الانخراط التطوعي</a>
-        <a href="#about" class="drawer-link">من نحن</a>
+        <button id="drawer-admin" class="drawer-link btn outline">لوحة الإدارة</button>
       </nav>
       <button id="drawer-close" class="btn outline" aria-label="إغلاق القائمة">إغلاق</button>
     </div>
   </header>
-
-  <!-- bottom nav for small screens -->
-  <nav class="bottom-nav" aria-label="التنقل السفلي">
-    <button class="bn-item" data-target="#awareness">التوعية</button>
-    <button class="bn-item" data-target="#consultation">استشارة</button>
-    <button class="bn-item" data-target="#volunteer">التطوع</button>
-    <button class="bn-item" data-target="#about">نبذة</button>
-  </nav>
 
   <main class="container main" id="main">
     <!-- Awareness Section -->

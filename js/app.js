@@ -1,5 +1,6 @@
 // app.js — تعاملات الواجهة الأمامية للزوار (استشارات، نموذج التطوع، نسخ الكود، تنقلات)
 // إضافة: حفظ المسودات محليًا، شدة الحالة، زر طوارئ، تبديل تباين عالي، traps للتركيز في drawer، تحسين وصولية.
+// إضافة: ربط زر لوحة الإدارة وdrawer admin
 (() => {
   // Utilities
   const $ = sel => document.querySelector(sel);
@@ -15,12 +16,13 @@
   const drawer = $('#mobile-drawer');
   const drawerNav = $('#drawer-nav');
   const drawerClose = $('#drawer-close');
+  const drawerAdmin = $('#drawer-admin');
 
   function openDrawer() {
     drawer.setAttribute('aria-hidden', 'false');
     drawer.classList.add('open');
     // focus first link
-    const first = drawer.querySelector('a');
+    const first = drawer.querySelector('button, a');
     first?.focus();
     // trap focus
     document.addEventListener('keydown', trapDrawer);
@@ -49,14 +51,17 @@
   });
   drawerClose?.addEventListener('click', closeDrawer);
 
-  // bottom nav
-  const bottomNavBtns = $$('.bn-item');
-  bottomNavBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = document.querySelector(btn.dataset.target);
-      if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
-    });
+  // drawer admin
+  drawerAdmin?.addEventListener('click', () => {
+    window.open('admin.html', '_blank');
   });
+
+  // admin button
+  $('#open-admin')?.addEventListener('click', () => {
+    window.open('admin.html', '_blank');
+  });
+
+  // bottom nav handlers removed (nav items deleted)
 
   // Contrast toggle (persisted)
   const contrastToggle = $('#contrast-toggle');
@@ -240,6 +245,16 @@
     saveConsultDraft();
   });
 
+  // Activate card-cta buttons to smoothly scroll or open admin
+  $$('.card-cta').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+
   // Toast system
   const toastEl = $('#toast');
   let toastTimer = null;
@@ -272,18 +287,7 @@
     }
   });
 
-  // Smooth in-page nav highlight
-  const navLinks = $$('.nav-link');
-  navLinks.forEach(a => {
-    a.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      const href = a.getAttribute('href');
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
-      navLinks.forEach(l => l.classList.remove('active'));
-      a.classList.add('active');
-    });
-  });
+  // Smooth in-page nav highlight (removed top nav)
 
   // Progressive reveal for article cards
   window.addEventListener('load', () => {
